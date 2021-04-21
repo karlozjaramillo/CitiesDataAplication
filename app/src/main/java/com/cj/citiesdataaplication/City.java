@@ -1,16 +1,16 @@
 package com.cj.citiesdataaplication;
 
-public class Cities {
+public class City {
     int id;
     String nombre;
     int poblacion;
     double latitud;
     double longitud;
 
-    public Cities() {
+    public City() {
     }
 
-    public Cities(int id, String nombre, int poblacion, double latitud, double longitud) {
+    public City(int id, String nombre, int poblacion, double latitud, double longitud) {
         this.id = id;
         this.nombre = nombre;
         this.poblacion = poblacion;
