@@ -60,10 +60,10 @@ public class City {
 
     @Override
     public String toString() {
-        return "Id: " + id +
-                "Nombre: " + nombre +
-                "Poblacion: " + poblacion +
-                "Latitud: " + latitud +
+        return "Id: " + id + "\n" +
+                "Nombre: " + nombre + "\n" +
+                "Poblacion: " + poblacion + "\n" +
+                "Latitud: " + latitud + "\n" +
                 "Longitud: " + longitud;
     }
 }
