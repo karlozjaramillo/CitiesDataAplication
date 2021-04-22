@@ -10,6 +10,8 @@ import android.widget.EditText;
 import android.widget.ListView;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -19,6 +21,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private EditText txtLatitud;
     private EditText txtLongitud;
     private Button btnGuardar;
+    private Button btnListar;
     private ListView lvListar;
     private ArrayAdapter<String> adapter;
     MyDbHelper db = new MyDbHelper(this);
@@ -35,12 +38,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         txtLatitud = findViewById(R.id.txtLatitud);
         txtLongitud = findViewById(R.id.txtLongitud);
         btnGuardar = findViewById(R.id.btnGuardar);
+        btnListar = findViewById(R.id.btnListar);
         lvListar = findViewById(R.id.lvListar);
         btnGuardar.setOnClickListener(this);
+        btnListar.setOnClickListener(this);
 
-//        cities = db.selectCity(db.getWritableDatabase());
-
-//        MyDbHelper db = new MyDbHelper(this);
 //        City city = new City();
 //        city.setId(1);
 //        city.setNombre("Manizales");
@@ -52,17 +54,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //        city.setPoblacion(7743955);
 //        city.setLatitud(4.60971);
 //        city.setLongitud(-74.08175);
-//
-//        db.insertCity(db.getWritableDatabase(), city);
-
-//        ArrayList<City> cities = db.selectCity(db.getWritableDatabase());
-//        for (City citySelected : cities) {
-//            System.out.println("ID: " + citySelected.getId() + "\n" +
-//                    "Nombre: " + citySelected.getNombre() + "\n" +
-//                    "Población: " + citySelected.getPoblacion() + "\n" +
-//                    "Latitud: " + citySelected.getLatitud() + "\n" +
-//                    "Longitud: " + citySelected.getLatitud());
-//        }
     }
 
     @Override
@@ -70,7 +61,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (v.getId()) {
             case R.id.btnGuardar:
                 agregarCiudad();
+                break;
+            case R.id.btnListar:
                 cities = db.selectCity(db.getWritableDatabase());
+                ordenarAlfabeticamente();
                 adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, cities);
                 lvListar.setAdapter(adapter);
                 break;
@@ -89,11 +83,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         limpiarCampos();
     }
 
-    private void limpiarCampos(){
+    private void limpiarCampos() {
         txtId.getText().clear();
         txtNombre.getText().clear();
         txtPoblacion.getText().clear();
         txtLatitud.getText().clear();
         txtLongitud.getText().clear();
+    }
+
+    private void ordenarAlfabeticamente() {
+        Collections.sort(cities, new Comparator<City>() {
+            @Override
+            public int compare(City c1, City c2) {
+                return c1.getNombre().compareTo(c2.getNombre());
+            }
+        });
     }
 }
