@@ -3,6 +3,7 @@ package com.cj.citiesdataaplication;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.widget.EditText;
 
 import java.util.ArrayList;
 
